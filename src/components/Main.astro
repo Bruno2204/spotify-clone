@@ -1,0 +1,17 @@
+---
+import { playlists } from '@/lib/data.js';
+import MainCard from './MainCard.astro';
+---
+
+<div
+  id='playlist-container'
+  class='relative transition-all duration-1000 bg-section-bg m-2 rounded-lg z-10 w-full'
+>
+  <div class='relative z-20 m-3'>
+    <h2 class='text-white text-2xl font-bold'>Good Morning</h2>
+    <div class='flex flex-wrap z-10 gap-x-4 gap-y-6 mt-2'>
+      {playlists.map((playlist) => <MainCard playlist={playlist} />)}
+    </div>
+  </div>
+  <!-- <div class='absolute inset-0 bg-linear-to-b from-green-500 via-section-bg rounded-lg h-[30%]'> -->
+</div>

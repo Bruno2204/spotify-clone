@@ -1,0 +1,27 @@
+---
+import Main from './Main.astro';
+import Player from './Player.astro';
+import SideMenu from './SideMenu.astro';
+---
+
+<div id='app' class='h-dvh p-2 gap-2 bg-black'>
+  <aside class='[grid-area:aside] rounded-lg flex flex-col'>
+    <SideMenu />
+  </aside>
+  <main class='[grid-area:main] rounded-lg flex flex-1'>
+    <Main />
+  </main>
+  <footer class='[grid-area:player] bg-red-500'>
+    <Player />
+  </footer>
+</div>
+<style>
+  #app {
+    display: grid;
+    grid-template-areas:
+      'aside main main'
+      'player player player';
+    grid-template-columns: 350px 1fr;
+    grid-template-rows: 1fr auto;
+  }
+</style>
