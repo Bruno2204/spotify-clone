@@ -15,7 +15,12 @@ const artistsString: string = artists.join(', ');
   class='flex flex-col gap-3 hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-42 p-3'
 >
   <picture class='aspect-square w-full h-auto'>
-    <img src={cover} alt={title} class='rounded' />
+    <img
+      src={cover}
+      alt={title}
+      class='rounded-md'
+      transition:name=`playlist-${id}-image`
+    />
   </picture>
   <div class='flex flex-col gap-1'>
     <h3 class='text-white text-md font-normal truncate'>{title}</h3>

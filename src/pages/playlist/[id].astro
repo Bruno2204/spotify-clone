@@ -1,0 +1,26 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+import { allPlaylists, songs } from '@/lib/data.js';
+
+const { id } = Astro.params;
+const playlist = allPlaylists.find((playlist) => playlist.id === id);
+const playlistSongs = songs.filter(
+  (song) => song.albumId === playlist?.albumId,
+);
+---
+
+<Layout>
+  <div
+    id='playlist-container'
+    class='relative transition-all duration-1000 bg-section-bg m-2 rounded-lg z-10 w-full'
+  >
+    <div class='relative z-20 m-3'>
+      <h2 class='text-white text-2xl font-bold'>{playlist?.title}</h2>
+    </div>
+    <div
+      class='absolute inset-0 bg-linear-to-b from-green-500 via-green-700/30 to-section-bg/80 rounded-lg h-[40%]'
+    >
+    </div>
+  </div>
+</Layout>

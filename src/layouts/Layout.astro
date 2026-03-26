@@ -1,5 +1,7 @@
 ---
+import Player from '@/components/Player.astro';
 import '../styles/global.css';
+import SideMenu from '@/components/SideMenu.astro';
 ---
 
 <!doctype html>
@@ -12,8 +14,12 @@ import '../styles/global.css';
 		<meta name='generator' content={Astro.generator} />
 		<title>Spotify Clone</title>
 	</head>
-	<body>
-		<slot />
+	<body id='app' class='h-dvh p-2 gap-2 bg-black'>
+		<SideMenu />
+		<main class='[grid-area:main] rounded-lg flex flex-1'>
+			<slot />
+		</main>
+		<Player />
 	</body>
 </html>
 
@@ -25,6 +31,15 @@ import '../styles/global.css';
 		height: 100%;
 		font-family: 'CircularStd', system-ui, sans-serif;
 		color: white;
+	}
+
+	#app {
+		display: grid;
+		grid-template-areas:
+			'aside main main'
+			'player player player';
+		grid-template-columns: 350px 1fr;
+		grid-template-rows: 1fr auto;
 	}
 	@font-face {
 		font-family: 'CircularStd';
