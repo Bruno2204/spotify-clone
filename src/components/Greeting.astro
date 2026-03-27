@@ -1,0 +1,16 @@
+<h2 class='text-white text-2xl font-bold' id='greeting-text'>Good Morning</h2>
+
+<script>
+  const updateGreeting = () => {
+    const hours = new Date().getHours();
+    const el = document.getElementById('greeting-text');
+
+    if (el) {
+      if (hours < 12) el.textContent = 'Good Morning';
+      else if (hours < 18) el.textContent = 'Good Afternoon';
+      else el.textContent = 'Good Evening';
+    }
+  };
+
+  document.addEventListener('astro:page-load', updateGreeting);
+</script>

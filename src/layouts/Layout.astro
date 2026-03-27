@@ -1,7 +1,8 @@
 ---
-import Player from '@/components/Player.astro';
+import Footer from '@/components/Footer.astro';
 import '../styles/global.css';
 import SideMenu from '@/components/SideMenu.astro';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <!doctype html>
@@ -13,13 +14,14 @@ import SideMenu from '@/components/SideMenu.astro';
 		<link rel='icon' href='/favicon.ico' />
 		<meta name='generator' content={Astro.generator} />
 		<title>Spotify Clone</title>
+		<ClientRouter />
 	</head>
 	<body id='app' class='h-dvh p-2 gap-2 bg-black'>
 		<SideMenu />
 		<main class='[grid-area:main] rounded-lg flex flex-1'>
 			<slot />
 		</main>
-		<Player />
+		<Footer />
 	</body>
 </html>
 

@@ -1,5 +1,6 @@
 ---
 import type { Playlist } from '@/lib/data.js';
+import { CardPlayButton } from './CardPlayButton.jsx';
 interface Props {
   playlist: Playlist;
 }
@@ -10,20 +11,34 @@ const { id, title, color, cover, artists } = playlist;
 const artistsString: string = artists.join(', ');
 ---
 
-<a
-  href={`/playlist/${id}`}
-  class='flex flex-col gap-3 hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-42 p-3'
->
-  <picture class='aspect-square w-full h-auto'>
-    <img
-      src={cover}
-      alt={title}
-      class='rounded-md'
-      transition:name=`playlist-${id}-image`
-    />
-  </picture>
-  <div class='flex flex-col gap-1'>
-    <h3 class='text-white text-md font-normal truncate'>{title}</h3>
-    <p class='text-zinc-400 text-sm font-normal truncate'>{artistsString}</p>
-  </div>
-</a>
+<article class='group relative'>
+  <CardPlayButton id={id} />
+  <a
+    href={`/playlist/${id}`}
+    class='flex flex-col gap-3 flex-1 h-full group-hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-36 p-3'
+    transition:name=`playlist-${id}-box`
+  >
+    <picture class='aspect-square w-full h-auto'>
+      <img
+        src={cover}
+        alt={title}
+        class='rounded-md'
+        transition:name=`playlist-${id}-image`
+      />
+    </picture>
+    <div class='flex flex-col gap-1'>
+      <h3
+        class='text-white text-md font-normal truncate'
+        transition:name=`playlist-${id}-title`
+      >
+        {title}
+      </h3>
+      <p
+        class='text-zinc-400 text-sm font-normal line-clamp-2'
+        transition:name=`playlist-${id}-artists`
+      >
+        {artistsString}
+      </p>
+    </div>
+  </a>
+</article>

@@ -13,13 +13,36 @@ const playlistSongs = songs.filter(
 <Layout>
   <div
     id='playlist-container'
-    class='relative transition-all duration-1000 bg-section-bg m-2 rounded-lg z-10 w-full'
+    class='relative transition-all duration-1000 bg-section-bg m-2 rounded-lg z-10 w-full overflow-x-hidden flex flex-col'
+    transition:name=`playlist-${id}-box`
   >
-    <div class='relative z-20 m-3'>
-      <h2 class='text-white text-2xl font-bold'>{playlist?.title}</h2>
-    </div>
+    <header class='flex flex-row gap-4 items-center p-6 mt-5'>
+      <picture class='size-40 aspect-square flex'>
+        <img
+          src={playlist?.cover}
+          alt={playlist?.title}
+          class='object-cover shadow-lg'
+          transition:name=`playlist-${id}-image`
+        />
+      </picture>
+      <div class='flex flex-col gap-2'>
+        <p class='text-gray-300 text-sm'>Playlist</p>
+        <h1
+          class='text-white text-4xl font-extrabold'
+          transition:name=`playlist-${id}-title`
+        >
+          {playlist?.title}
+        </h1>
+        <p
+          class='text-zinc-400 text-sm font-normal'
+          transition:name=`playlist-${id}-artists`
+        >
+          {playlist?.artists.join(', ')}
+        </p>
+      </div>
+    </header>
     <div
-      class='absolute inset-0 bg-linear-to-b from-green-500 via-green-700/30 to-section-bg/80 rounded-lg h-[40%]'
+      class=`absolute inset-0 bg-linear-to-b from-green-500 via-green-700/30 to-section-bg/80 rounded-lg h-[40%] -z-10`
     >
     </div>
   </div>
