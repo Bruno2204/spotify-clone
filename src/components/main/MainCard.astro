@@ -1,6 +1,6 @@
 ---
 import type { Playlist } from '@/lib/data.js';
-import { CardPlayButton } from './CardPlayButton.jsx';
+import { CardPlayButton } from '@/components/main/CardPlayButton.jsx';
 interface Props {
   playlist: Playlist;
 }
@@ -12,13 +12,13 @@ const artistsString: string = artists.join(', ');
 ---
 
 <article class='group relative'>
-  <CardPlayButton id={id} />
+  <CardPlayButton id={id} client:visible />
   <a
     href={`/playlist/${id}`}
-    class='flex flex-col gap-3 flex-1 h-full group-hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-36 p-3'
+    class='flex flex-col gap-3 flex-1 h-full group-hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-36 p-3 select-none'
     transition:name=`playlist-${id}-box`
   >
-    <picture class='aspect-square w-full h-auto'>
+    <picture class='aspect-square w-full h-auto overflow-hidden'>
       <img
         src={cover}
         alt={title}
