@@ -17,7 +17,7 @@ export function VolumeControl() {
   }
   return (
     <div className='flex items-center justify-end gap-2 select-none '>
-      <span className='cursor-pointer text-white/80 hover:text-white transition duration-200 w-6' onClick={handleClick}>
+      <span className='cursor-pointer text-white/80 hover:text-white transition duration-200 w-5' onClick={handleClick}>
         <VolumeIcon volume={volume} />
       </span>
       <Slider
