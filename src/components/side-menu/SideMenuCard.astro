@@ -12,12 +12,12 @@ const artistsString: string = artists.join(', ');
 
 <a
   href={`/playlist/${id}`}
-  class='flex flex-row gap-4 hover:bg-zinc-800 p-2 rounded-lg transition-colors duration-200 ease-in-out'
+  class='flex flex-row gap-4 hover:bg-zinc-800 p-2 rounded-lg transition-colors duration-200 ease-in-out justify-center md:justify-start'
 >
-  <picture class='size-12'>
-    <img src={cover} alt={title} class='size-12 rounded' />
+  <picture class='aspect-square w-14 place-content-center'>
+    <img src={cover} alt={title} class='rounded' />
   </picture>
-  <div class='flex flex-col gap-1'>
+  <div class='gap-1 hidden md:flex-col md:flex'>
     <h3 class='text-white text-md font-normal truncate'>{title}</h3>
     <p class='text-zinc-400 text-sm font-normal truncate'>{artistsString}</p>
   </div>
