@@ -28,6 +28,7 @@ export function SongControls({ audio }) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
   }
   const handleClick = () => {
+    if (!audio.current.src) return
     setIsPlaying(!isPlaying);
   };
 

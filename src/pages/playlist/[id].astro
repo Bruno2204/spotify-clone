@@ -1,4 +1,6 @@
 ---
+import { CardPlayButton } from '@/components/main/CardPlayButton.jsx';
+import PlaylistTable from '@/components/playlist/PlaylistTable.astro';
 import Layout from '@/layouts/Layout.astro';
 
 import { allPlaylists, songs } from '@/lib/data.js';
@@ -41,9 +43,15 @@ const playlistSongs = songs.filter(
         </p>
       </div>
     </header>
+    <div class='flex ml-6 hover:scale-105 duration-300 ease-in-out w-fit'>
+      <CardPlayButton id={id} client:load className='size-6 m-1.5' />
+    </div>
     <div
       class=`absolute inset-0 bg-linear-to-b from-green-500 via-green-700/30 to-section-bg/80 rounded-lg h-[40%] -z-10`
     >
     </div>
+    <section class='pt-6 px-2'>
+      <PlaylistTable songs={playlistSongs} />
+    </section>
   </div>
 </Layout>

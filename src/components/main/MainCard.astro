@@ -6,13 +6,17 @@ interface Props {
 }
 
 const { playlist } = Astro.props;
-const { id, title, color, cover, artists } = playlist;
+const { id, title, cover, artists } = playlist;
 
 const artistsString: string = artists.join(', ');
 ---
 
 <article class='group relative'>
-  <CardPlayButton id={id} client:visible />
+  <div
+    class='absolute right-6 top-19 z-1 translate-y-2 group-hover:translate-y-0 transition-all duration-500 ease-in-out opacity-0 group-hover:opacity-100'
+  >
+    <CardPlayButton id={id} client:visible />
+  </div>
   <a
     href={`/playlist/${id}`}
     class='flex flex-col gap-3 flex-1 h-full group-hover:bg-zinc-800 rounded-lg transition-colors duration-300 ease-in-out z-10 bg-white/20 backdrop-blur-sm w-36 p-3 select-none'
