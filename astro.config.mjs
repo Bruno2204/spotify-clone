@@ -11,8 +11,9 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  output: 'server',
+  output: 'static',
   integrations: [react()],
 
   site: 'https://bruno2204.github.io',
+  base: '/spotify-clone',
 });
