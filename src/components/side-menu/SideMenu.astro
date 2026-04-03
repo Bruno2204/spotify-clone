@@ -1,10 +1,9 @@
 ---
 import SideMenuNav from './SideMenuNav.astro';
 import SideMenuLibrary from './SideMenuLibrary.astro';
-import SideMenuLayout from './SideMenuLayout.jsx';
 ---
 
-<SideMenuLayout client:load>
+<aside class='[grid-area:aside] rounded-lg flex flex-col'>
   <SideMenuNav />
   <SideMenuLibrary />
-</SideMenuLayout>
+</aside>
