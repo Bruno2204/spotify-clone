@@ -12,5 +12,7 @@ export default defineConfig({
   },
 
   output: 'server',
-  integrations: [react()]
+  integrations: [react()],
+
+  site: 'https://bruno2204.github.io',
 });
