@@ -11,8 +11,8 @@ const { songs } = Astro.props;
 <table class='table-auto text-left min-w-full divide-y divide-white/10'>
   <thead class=''>
     <tr class='text-gray-500 text-sm font-light'>
-      <th class='px-4 py-2'>#</th>
-      <th class='px-4 py-2'>Title</th>
+      <th class='px-3 py-2'>#</th>
+      <th class='pr-4 py-2'>Title</th>
       <th class='px-4 py-2'>Album</th>
       <th class='px-4 py-2'>Duration</th>
     </tr>
@@ -22,21 +22,27 @@ const { songs } = Astro.props;
     <tr class='h-4'></tr>
     {
       songs.map((song, index) => (
-        <tr class='text-gray-400 hover:bg-white/10 transition-colors duration-200 ease-in-out'>
-          <td class='px-4 py-2 rounded-l-lg w-4'>{index + 1}</td>
-          <td class='px-4 py-2 flex items-center gap-2'>
-            <picture>
-              <img src={song.image} alt={song.title} class='w-10 h-10' />
+        <tr class='text-gray-400 hover:bg-white/10 transition-colors duration-200 ease-in-out w-full'>
+          <td class='px-3 py-2 rounded-l-lg'>{index + 1}</td>
+          <td class='pr-4 py-2 flex items-center gap-2 justify-start'>
+            <picture class='aspect-square w-10 h-10'>
+              <img src={song.image} alt={song.title} class='w-full' />
             </picture>
-            <div class='flex flex-col'>
-              <h3 class='text-white text-base font-normal'>{song.title}</h3>
-              <span class='text-zinc-400 text-sm font-normal'>
+            <div class='flex flex-col overflow-x-hidden '>
+              <h3 class='text-white text-base font-normal line-clamp-1'>
+                {song.title}
+              </h3>
+              <span class='text-zinc-400 text-sm font-normal line-clamp-1'>
                 {song.artists.join(', ')}
               </span>
             </div>
           </td>
-          <td class='px-4 py-2'>{song.album}</td>
-          <td class='px-4 py-2 rounded-r-lg'>{song.duration}</td>
+          <td class='px-4 py-2 overflow-x-hidden'>
+            <span class='line-clamp-1'>{song.album}</span>
+          </td>
+          <td class='px-4 py-2 rounded-r-lg '>
+            <span class='truncate'>{song.duration}</span>
+          </td>
         </tr>
       ))
     }
