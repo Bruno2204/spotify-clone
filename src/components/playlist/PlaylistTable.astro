@@ -13,8 +13,8 @@ const { songs } = Astro.props;
     <tr class='text-gray-500 text-sm font-light'>
       <th class='px-3 py-2'>#</th>
       <th class='pr-4 py-2'>Title</th>
-      <th class='px-4 py-2'>Album</th>
-      <th class='px-4 py-2'>Duration</th>
+      <th class='pr-3 py-2'>Album</th>
+      <th class='pr-1 py-2 truncate'>Duration</th>
     </tr>
   </thead>
 
@@ -37,10 +37,10 @@ const { songs } = Astro.props;
               </span>
             </div>
           </td>
-          <td class='px-4 py-2 overflow-x-hidden'>
+          <td class='pr-3 py-2 overflow-x-hidden'>
             <span class='line-clamp-1'>{song.album}</span>
           </td>
-          <td class='px-4 py-2 rounded-r-lg '>
+          <td class='pr-1 py-2 rounded-r-lg '>
             <span class='truncate'>{song.duration}</span>
           </td>
         </tr>
