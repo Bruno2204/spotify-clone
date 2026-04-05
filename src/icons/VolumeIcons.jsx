@@ -17,7 +17,7 @@ const VolumeHigh = () => (
 
 export function VolumeIcon({ volume }) {
   if (volume === 0) return <VolumeMute />
-  if (volume < 0.5) return <VolumeLow />
-  if (volume < 0.8) return <VolumeMedium />
+  if (volume < 0.3) return <VolumeLow />
+  if (volume < 0.7) return <VolumeMedium />
   return <VolumeHigh />
 }

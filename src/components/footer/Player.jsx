@@ -26,11 +26,8 @@ export default function Player() {
     }
   }, [currentMusic])
 
-
-
-
   return (
-    <div className='grid grid-cols-3'>
+    <div className='grid grid-cols-3 gap-x-1'>
       <CurrentSong song={currentMusic.song} />
 
       <SongControls audio={audioRef} />

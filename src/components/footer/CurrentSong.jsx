@@ -14,8 +14,8 @@ export function CurrentSong({ song }) {
         )}
       </picture>
       <div>
-        <h3 className='text-white text-md font-normal truncate'>{song?.title}</h3>
-        <p className='text-zinc-400 text-sm font-normal line-clamp-2'>{song?.artists.join(', ')}</p>
+        <h3 className='text-white text-md font-normal line-clamp-1'>{song?.title}</h3>
+        <p className='text-zinc-400 text-sm font-normal line-clamp-1'>{song?.artists.join(', ')}</p>
       </div>
     </div>
   );

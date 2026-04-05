@@ -16,7 +16,7 @@ export function VolumeControl() {
     }
   }
   return (
-    <div className='flex items-center justify-end gap-2 select-none '>
+    <div className='flex items-center justify-end gap-2 select-none w-full'>
       <span className='cursor-pointer text-white/80 hover:text-white transition duration-200 w-5' onClick={handleClick}>
         <VolumeIcon volume={volume} />
       </span>
@@ -25,7 +25,7 @@ export function VolumeControl() {
         min={0}
         step={0.01}
         value={[volume]}
-        className='w-[95px]'
+        className=' max-w-[95px]'
         onValueChange={(value) => {
           setVolume(value[0]);
         }}
