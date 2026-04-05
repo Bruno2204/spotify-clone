@@ -14,7 +14,7 @@ const NAVS = [
     NAVS.map((nav) => (
       <a
         href={nav.href}
-        class='hover:text-zinc-100 transition-colors duration-300 ease-in-out  flex items-center gap-4'
+        class='first:hover:text-zinc-100 transition-colors duration-300 ease-in-out  flex items-center gap-4 not-first:cursor-default'
       >
         <nav.icon />
         {nav.label}
