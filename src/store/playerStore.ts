@@ -1,5 +1,6 @@
 import type { Playlist, Song } from '@/lib/data.ts';
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
 interface State {
   isPlaying: boolean;
@@ -15,12 +16,24 @@ interface State {
   setVolume: (volume: number) => void;
 }
 
-export const usePlayerStore = create<State>((set) => ({
-  isPlaying: false,
-  currentMusic: { playlist: null, song: null, songs: [] },
-  volume: 0.3,
+export const usePlayerStore = create<State>()(
+  persist(
+    (set) => ({
+      isPlaying: false,
+      currentMusic: { playlist: null, song: null, songs: [] },
+      volume: 0.3,
 
-  setIsPlaying: (isPlaying) => set({ isPlaying }),
-  setCurrentMusic: (currentMusic) => set({ currentMusic }),
-  setVolume: (volume) => set({ volume }),
-}));
+      setIsPlaying: (isPlaying) => set({ isPlaying }),
+      setCurrentMusic: (currentMusic) => set({ currentMusic }),
+      setVolume: (volume) => set({ volume }),
+    }),
+    {
+      name: 'player',
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        currentMusic: state.currentMusic,
+        volume: state.volume,
+      }),
+    },
+  ),  
+);
