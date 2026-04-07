@@ -50,12 +50,12 @@ function PlaylistRow({ playlist, songs, song, index }) {
             <button className="cursor-pointer transition-transform duration-200 ease-in-out" onClick={handlePausePlay}>{isPlaying ? <Pause /> : <Play />}</button>
           ) : (
             <>
-              <span className="absolute opacity-100 group-hover:opacity-0 transition-all duration-200 cursor-pointer">
+              <button onClick={handlePlaySong} className="absolute opacity-0 group-hover:opacity-100 transition-all duration-200 z-2">
+                <Play className="size-4 hover:text-white hover:opacity-100 transition-colors duration-200 ease-in-out cursor-pointer" />
+              </button>
+              <span className="absolute opacity-100 group-hover:opacity-0 transition-all duration-200 select-none z-1">
                 {index + 1}
               </span>
-              <button onClick={handlePlaySong} className="absolute opacity-0 group-hover:opacity-100 transition-all duration-200 cursor-pointer">
-                <Play className="size-4 hover:text-white hover:opacity-100 transition-colors duration-200 ease-in-out" />
-              </button>
             </>
           )}
         </div>
