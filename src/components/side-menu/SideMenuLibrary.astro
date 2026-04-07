@@ -1,6 +1,6 @@
 ---
 import LibraryIcon from '@/icons/Library.astro';
-import SideMenuCard from '@/components/side-menu/SideMenuCard.astro';
+import { SideMenuCard } from '@/components/side-menu/SideMenuCard.jsx';
 
 import { playlists, type Playlist } from '@/lib/data.js';
 ---
@@ -15,7 +15,7 @@ import { playlists, type Playlist } from '@/lib/data.js';
   <div class='flex flex-col gap-4'>
     {
       playlists.map((playlist: Playlist) => (
-        <SideMenuCard playlist={playlist} />
+        <SideMenuCard playlist={playlist} client:load />
       ))
     }
   </div>

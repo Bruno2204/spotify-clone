@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { usePlayerStore } from '@/store/playerStore.js';
+import { usePlayerStore } from '@/store/playerStore.ts';
 import { CurrentSong } from './CurrentSong.jsx';
 import { VolumeControl } from './VolumeControl.jsx';
 import { SongControls } from './SongControls.jsx';

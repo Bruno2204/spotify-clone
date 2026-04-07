@@ -1,4 +1,4 @@
-import { usePlayerStore } from "@/store/playerStore.js";
+import { usePlayerStore } from "@/store/playerStore.ts";
 import { Play, Pause, Prev, Next } from "@/icons/PlayerIcons.jsx";
 
 export function SongButtons({ audio }) {

@@ -1,4 +1,4 @@
-import { usePlayerStore } from "@/store/playerStore.js";
+import { usePlayerStore } from "@/store/playerStore.ts";
 import { useRef } from "react";
 import { VolumeIcon } from "@/icons/VolumeIcons.jsx";
 import { Slider } from "@/components/ui/slider.tsx";
