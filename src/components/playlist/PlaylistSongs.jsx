@@ -51,7 +51,7 @@ function PlaylistRow({ playlist, songs, song, index }) {
           ) : (
             <>
               <button onClick={handlePlaySong} className="absolute opacity-0 group-hover:opacity-100 transition-all duration-200 z-2">
-                <Play className="size-4 hover:text-white hover:opacity-100 transition-colors duration-200 ease-in-out cursor-pointer" />
+                <Play className="size-4 hover:text-white hover:opacity-100 transition-colors duration-200 ease-in-out cursor-pointer opacity-0 group-hover:opacity-100" />
               </button>
               <span className="absolute opacity-100 group-hover:opacity-0 transition-all duration-200 select-none z-1">
                 {index + 1}
