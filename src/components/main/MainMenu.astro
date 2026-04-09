@@ -8,7 +8,7 @@ import MainPlaylist from './MainPlaylist.astro';
 <div
   id='playlist-container'
   class='relative transition-all duration-1000 bg-section-bg rounded-lg z-10 w-full
-  bg-linear-to-b from-green-500/70 via-green-700/30 to-section-bg/80'
+  bg-linear-to-b from-green-500/70 via-green-700/30 to-section-bg/80 contenedor'
 >
   <div class='relative z-20 m-3 mt-6'>
     <Greeting />
@@ -28,9 +28,33 @@ import MainPlaylist from './MainPlaylist.astro';
   </div> -->
 </div>
 
-<!-- <style>
-  #playlist-container {
-    scrollbar-gutter: stable both-edges;
+<style>
+  /* Contenedor principal */
+  .contenedor {
     overflow-y: auto;
+    scrollbar-gutter: stable;
+
+    /* Estándar moderno (Firefox y navegadores actualizados) */
+    scrollbar-color: rgba(100, 100, 100, 0.5) #1d1d1d;
+    transition: scrollbar-color 0.3s ease;
   }
-</style> -->
+
+  /* Para Chrome, Edge y Safari */
+  .contenedor::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .contenedor::-webkit-scrollbar-track {
+    background: #1d1d1d;
+  }
+
+  .contenedor::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.5);
+    border-radius: 10px;
+  }
+
+  /* Truco: Al hacer hover en el CONTENEDOR, cambiamos el estilo de la barra */
+  .contenedor:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(104, 104, 104, 0.8);
+  }
+</style>

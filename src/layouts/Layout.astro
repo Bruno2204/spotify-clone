@@ -18,7 +18,9 @@ import { ClientRouter } from 'astro:transitions';
   </head>
   <body id='app' class='h-dvh p-2 bg-black'>
     <SideMenu />
-    <main class='[grid-area:main] rounded-lg flex flex-1 bg-section-bg m-2'>
+    <main
+      class='[grid-area:main] rounded-lg flex flex-1 overflow-y-auto bg-section-bg m-2'
+    >
       <slot />
     </main>
     <Footer />
