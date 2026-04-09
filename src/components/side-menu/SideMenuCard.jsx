@@ -4,6 +4,7 @@ export function SideMenuCard({ playlist }) {
   const { id, title, cover, artists } = playlist;
   const artistsString = artists.join(', ');
   const isCurrentPlaylist = usePlayerStore((state) => state.currentMusic?.playlist?.id === id);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   return (
     <a
       href={`/playlist/${id}`}
@@ -13,7 +14,7 @@ export function SideMenuCard({ playlist }) {
         <img src={cover} alt={title} class='rounded' />
       </picture>
       <div class='gap-1 hidden md:flex-col md:flex'>
-        <h3 class={`${isCurrentPlaylist ? 'text-green-500' : 'text-white'} text-md font-normal truncate`}>{title}</h3>
+        <h3 class={`${isCurrentPlaylist && isPlaying ? 'text-green-500' : 'text-white'} text-md font-normal truncate`}>{title}</h3>
         <p class='text-zinc-400 text-sm font-normal truncate'>{artistsString}</p>
       </div>
     </a>
