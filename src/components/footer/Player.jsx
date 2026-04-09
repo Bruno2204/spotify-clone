@@ -22,7 +22,9 @@ export default function Player() {
     const { song, playlist } = currentMusic
     if (song) {
       audioRef.current.src = `/music/${playlist.id}/0${song.id}.mp3`;
-      audioRef.current.play();
+      if (isPlaying) {
+        audioRef.current.play();
+      }
     }
   }, [currentMusic])
 
