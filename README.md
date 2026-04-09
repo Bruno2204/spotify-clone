@@ -3,13 +3,6 @@
 A pixel-faithful, full-featured **Spotify UI clone** built with **Astro**, **React**, and **TypeScript**. Features a fully functional music player with real audio playback, playlist navigation, volume control, and reactive state management — deployed on Vercel.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://spotify-clone-seven-rho-55.vercel.app/)
-[![GitHub Repo](https://img.shields.io/badge/Source%20Code-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/Bruno2204/spotify-clone)
-
----
-
-## 📸 Preview
-
-> _(Add a screenshot or screen recording of your app here)_
 
 ---
 
@@ -36,7 +29,6 @@ A pixel-faithful, full-featured **Spotify UI clone** built with **Astro**, **Rea
 | [TypeScript](https://www.typescriptlang.org/) | Type-safe data models and store                |
 | [Zustand](https://github.com/pmndrs/zustand)  | Lightweight global state for the music player  |
 | [Tailwind CSS v4](https://tailwindcss.com/)   | Utility-first styling                          |
-| [Lucide React](https://lucide.dev/)           | Icon library                                   |
 | [shadcn/ui](https://ui.shadcn.com/)           | Accessible UI primitives (Slider, etc.)        |
 | [Vercel](https://vercel.com/)                 | Deployment & serverless hosting                |
 
