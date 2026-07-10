@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.production
 
+# prisma local db + generated client
+prisma/dev.db
+prisma/dev.db-journal
+prisma/*.db
+prisma/*.db-journal
+
 # macOS-specific files
 .DS_Store
 

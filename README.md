@@ -79,11 +79,14 @@ src/
 git clone https://github.com/Bruno2204/spotify-clone.git
 cd spotify-clone
 
+# Install pnpm if you don't have it
+npm install -g pnpm
+
 # Install dependencies
-npm install
+pnpm install
 
 # Start the development server
-npm run dev
+pnpm dev
 ```
 
 The app will be running at `http://localhost:4321`.

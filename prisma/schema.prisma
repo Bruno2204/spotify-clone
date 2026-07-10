@@ -1,0 +1,92 @@
+// Prisma schema — Spotify Clone
+// Database: Postgres (Neon free tier in dev + prod, Vercel-friendly).
+//
+// Cache note: songs are NOT stored in DB. We cache Deezer metadata (title, artist, cover,
+// preview URL) on join tables so we don't hit Deezer on every page load. The deezerTrackId
+// is the source of truth — re-fetch from Deezer if a preview URL 404s.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String   @map("password_hash")
+  avatarUrl    String?  @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  playlists  Playlist[]
+  likedSongs LikedSong[]
+
+  @@map("users")
+}
+
+model Playlist {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  coverUrl    String?  @map("cover_url")
+  colorAccent String   @default("#1DB954") @map("color_accent")
+  colorDark   String   @default("#121212") @map("color_dark")
+  isPublic    Boolean  @default(true) @map("is_public")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  ownerId String @map("owner_id")
+  owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  songs PlaylistSong[]
+
+  @@index([ownerId])
+  @@map("playlists")
+}
+
+model PlaylistSong {
+  id        String   @id @default(cuid())
+  position  Int
+  addedAt   DateTime @default(now()) @map("added_at")
+
+  // Deezer track ID — source of truth. Always int, fits in Int32.
+  deezerTrackId Int    @map("deezer_track_id")
+  // Cached metadata — refreshed if preview URL goes stale (see comment at top).
+  title         String
+  artistName    String @map("artist_name")
+  albumTitle    String @map("album_title")
+  coverUrl      String @map("cover_url")
+  previewUrl    String @map("preview_url")
+  durationSec   Int    @map("duration_sec")
+
+  playlistId String   @map("playlist_id")
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, deezerTrackId])
+  @@index([deezerTrackId])
+  @@map("playlist_songs")
+}
+
+model LikedSong {
+  id      String   @id @default(cuid())
+  likedAt DateTime @default(now()) @map("liked_at")
+
+  deezerTrackId Int    @map("deezer_track_id")
+  title         String
+  artistName    String @map("artist_name")
+  albumTitle    String @map("album_title")
+  coverUrl      String @map("cover_url")
+  previewUrl    String @map("preview_url")
+  durationSec   Int    @map("duration_sec")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, deezerTrackId])
+  @@index([deezerTrackId])
+  @@map("liked_songs")
+}
