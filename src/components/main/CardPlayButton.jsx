@@ -25,7 +25,7 @@ export function CardPlayButton({ id, className = "" }) {
       type="button"
       onClick={handleClick}
       aria-label={isPlaying && isCurrentPlaylist ? 'Pause playlist' : 'Play playlist'}
-      className={`transition-all duration-500 bg-green-500 rounded-full p-3 ease-in-out text-black cursor-pointer hover:bg-green-400 hover:scale-105
+      className={`transition-all duration-500 bg-green-500 rounded-full p-3 ease-in-out text-black cursor-pointer border-0 outline-none focus-visible:ring-2 focus-visible:ring-white/80 hover:bg-green-400 hover:scale-105
       hover:shadow-2xl hover:shadow-black shadow-black shadow-7xl`}
     >
       {isPlaying && isCurrentPlaylist ? <Pause className={className} /> : <Play className={className} />}
