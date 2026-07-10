@@ -9,21 +9,21 @@ export default function Player() {
   const audioRef = useRef();
 
   useEffect(() => {
-    audioRef.current.volume = volume;
+    audioRef.current?.volume = volume;
   }, [volume]);
 
   useEffect(() => {
     isPlaying
-      ? audioRef.current.play()
-      : audioRef.current.pause();
+      ? audioRef.current?.play()
+      : audioRef.current?.pause();
   }, [isPlaying])
 
   useEffect(() => {
     const { song, playlist } = currentMusic
-    if (song) {
+    if (song && audioRef.current) {
       audioRef.current.src = `/music/${playlist.id}/0${song.id}.mp3`;
       if (isPlaying) {
-        audioRef.current.play();
+        audioRef.current?.play();
       }
     }
   }, [currentMusic])
