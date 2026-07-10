@@ -9,7 +9,9 @@ export default function Player() {
   const audioRef = useRef();
 
   useEffect(() => {
-    audioRef.current?.volume = volume;
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
   }, [volume]);
 
   useEffect(() => {
