@@ -38,6 +38,12 @@ export default defineConfig({
     // Mirror the @/* alias from tsconfig.json (Vite doesn't read tsconfig paths).
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // astro:middleware is a Vite virtual module only available inside Astro.
+      // Tests need a real module, so we point it at a tiny stub that exposes
+      // just `defineMiddleware` (the only import we use).
+      'astro:middleware': fileURLToPath(
+        new URL('./src/test/astro-middleware-stub.ts', import.meta.url),
+      ),
     },
   },
 

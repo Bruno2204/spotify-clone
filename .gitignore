@@ -29,3 +29,6 @@ prisma/*.db-journal
 # jetbrains setting folder
 .idea/
 .vercel
+
+# agent tool local state
+.atl/
