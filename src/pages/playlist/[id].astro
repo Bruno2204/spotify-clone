@@ -1,42 +1,73 @@
 ---
+import { prisma } from '@/lib/prisma';
 import { CardPlayButton } from '@/components/main/CardPlayButton.jsx';
-import { PlaylistSongs } from '@/components/playlist/PlaylistSongs.jsx';
+import { PlaylistPage } from '@/components/playlist/PlaylistPage.jsx';
 import Layout from '@/layouts/Layout.astro';
 
-import { allPlaylists, songs } from '@/lib/data.js';
-
 const { id } = Astro.params;
-const playlist = allPlaylists.find((playlist) => playlist.id === id);
-const playlistSongs = songs.filter(
-  (song) => song.albumId === playlist?.albumId,
-);
+if (!id) return Astro.redirect('/');
+
+const dbPlaylist = await prisma.playlist.findUnique({
+  where: { id },
+  include: {
+    songs: { orderBy: { position: 'asc' } },
+    owner: { select: { name: true, id: true } },
+  },
+});
+
+if (!dbPlaylist) {
+  return new Response('Playlist not found', { status: 404 });
+}
+
+const user = Astro.locals.user;
+const isOwner = user?.id === dbPlaylist.owner.id;
+const cover = dbPlaylist.coverUrl ?? '/og-default.png';
+const subtitle = dbPlaylist.description ?? `By ${dbPlaylist.owner.name}`;
+
+const songs = dbPlaylist.songs.map((s) => ({
+  deezerId: s.deezerTrackId,
+  title: s.title,
+  artist: s.artistName,
+  album: s.albumTitle,
+  cover: s.coverUrl,
+  previewUrl: s.previewUrl,
+  durationSec: s.durationSec,
+}));
+
+const initialPlaylist = {
+  id: dbPlaylist.id,
+  title: dbPlaylist.title,
+  description: dbPlaylist.description,
+  coverUrl: dbPlaylist.coverUrl,
+};
 ---
 
-<Layout>
+<Layout title={dbPlaylist.title} description={subtitle} image={cover}>
   <div
     id='playlist-container'
     class='relative transition-all duration-1000 bg-section-bg rounded-lg z-10 w-full overflow-x-hidden flex flex-col'
-    style={`background: linear-gradient(to bottom, ${playlist?.color.accent}, ${playlist?.color.accent}33 60%, transparent)`}
+    style={`background: linear-gradient(to bottom, ${dbPlaylist.colorAccent}, ${dbPlaylist.colorAccent}33 60%, transparent)`}
   >
     <header class='flex flex-row gap-4 items-center p-6 mt-5'>
       <picture class='size-40 aspect-square flex'>
         <img
-          src={playlist?.cover}
-          alt={playlist?.title}
-          class='object-cover shadow-lg select-none'
-          transition:name=`playlist-${id}-image`
+          src={cover}
+          alt={dbPlaylist.title}
+          class='object-cover shadow-lg select-none bg-zinc-800'
+          transition:name={`playlist-${id}-image`}
         />
       </picture>
       <div class='flex flex-col gap-2'>
         <h1
           class='text-white text-4xl font-extrabold'
-          transition:name=`playlist-${id}-title`
+          transition:name={`playlist-${id}-title`}
         >
-          {playlist?.title}
+          {dbPlaylist.title}
         </h1>
         <p class='text-zinc-400 text-sm font-normal'>
-          {playlist?.artists.join(', ')}
+          {subtitle}
         </p>
+        {isOwner && <p class='text-zinc-500 text-xs'>Your playlist</p>}
       </div>
     </header>
 
@@ -48,12 +79,12 @@ const playlistSongs = songs.filter(
     </div>
     <div
       class='absolute inset-0 rounded-lg h-[60%] -z-10'
-      transition:name=`playlist-bg`
+      transition:name='playlist-bg'
     >
     </div>
 
     <section class='pt-6 px-2'>
-      <PlaylistSongs playlist={playlist} songs={playlistSongs} client:load />
+      <PlaylistPage playlist={initialPlaylist} initialSongs={songs} isOwner={isOwner} client:load />
     </section>
   </div>
 </Layout>

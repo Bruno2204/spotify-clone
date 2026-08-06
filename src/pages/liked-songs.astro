@@ -1,0 +1,8 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { LikedSongs } from '@/components/playlist/LikedSongs.jsx';
+---
+
+<Layout title='Liked Songs'>
+  <LikedSongs client:load />
+</Layout>
