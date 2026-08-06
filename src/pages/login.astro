@@ -1,0 +1,10 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { LoginForm } from '@/components/auth/LoginForm.jsx';
+---
+
+<Layout title='Log in'>
+  <div class='p-6 max-w-4xl mx-auto w-full flex justify-center'>
+    <LoginForm client:load />
+  </div>
+</Layout>

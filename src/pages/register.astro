@@ -1,0 +1,10 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { RegisterForm } from '@/components/auth/RegisterForm.jsx';
+---
+
+<Layout title='Sign up'>
+  <div class='p-6 max-w-4xl mx-auto w-full flex justify-center'>
+    <RegisterForm client:load />
+  </div>
+</Layout>
