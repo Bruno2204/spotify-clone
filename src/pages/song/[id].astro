@@ -1,0 +1,11 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SongDetail } from '@/components/main/SongDetail.jsx';
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/');
+---
+
+<Layout title='Song'>
+  <SongDetail trackId={id} client:load />
+</Layout>

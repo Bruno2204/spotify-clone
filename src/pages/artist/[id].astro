@@ -1,0 +1,24 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { ArtistDetail } from '@/components/main/ArtistDetail.jsx';
+import { getArtist, getArtistTop } from '@/lib/deezer';
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/');
+
+let data = null;
+try {
+  const [artist, top] = await Promise.all([getArtist(id), getArtistTop(id)]);
+  data = { artist, top };
+} catch {
+  data = null;
+}
+---
+
+<Layout title={data?.artist?.name ?? 'Artist'}>
+  {data ? (
+    <ArtistDetail initialData={data} client:load />
+  ) : (
+    <div class='p-6 text-red-400'>Could not load artist.</div>
+  )}
+</Layout>

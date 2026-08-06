@@ -1,0 +1,23 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { AlbumDetail } from '@/components/main/AlbumDetail.jsx';
+import { getAlbum } from '@/lib/deezer';
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect('/');
+
+let data = null;
+try {
+  data = await getAlbum(id);
+} catch {
+  data = null;
+}
+---
+
+<Layout title={data?.title ?? 'Album'}>
+  {data ? (
+    <AlbumDetail initialData={data} client:load />
+  ) : (
+    <div class='p-6 text-red-400'>Could not load album.</div>
+  )}
+</Layout>
