@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SearchPage } from '@/components/search/SearchPage.jsx';
+import {
+  searchTracks,
+  searchArtists,
+  searchAlbums,
+  searchPlaylists,
+  getTopPodcasts,
+} from '@/lib/deezer';
+
+const q = Astro.url.searchParams.get('q')?.trim() ?? '';
+
+const [tracks, artists, albums, playlists, podcasts] = q
+  ? await Promise.all([
+      searchTracks(q, 20),
+      searchArtists(q, 20),
+      searchAlbums(q, 20),
+      searchPlaylists(q, 20),
+      getTopPodcasts(20),
+    ])
+  : [[], [], [], [], []];
+---
+
+<Layout title={q ? `Search "${q}"` : 'Search'}>
+  <SearchPage
+    q={q}
+    initialTracks={tracks as any}
+    initialArtists={artists as any}
+    initialAlbums={albums as any}
+    initialPlaylists={playlists as any}
+    initialPodcasts={podcasts as any}
+    client:load
+  />
+</Layout>

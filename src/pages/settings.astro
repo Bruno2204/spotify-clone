@@ -1,0 +1,18 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { SettingsForm } from '@/components/settings/SettingsForm.jsx';
+import { prisma } from '@/lib/prisma';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/login?next=/settings');
+
+const fullUser = await prisma.user.findUnique({
+  where: { id: user.id },
+  select: { id: true, name: true, email: true },
+});
+if (!fullUser) return Astro.redirect('/login');
+---
+
+<Layout title='Settings'>
+  <SettingsForm user={fullUser} client:load />
+</Layout>

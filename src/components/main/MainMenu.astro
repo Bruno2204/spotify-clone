@@ -1,45 +1,35 @@
 ---
-import { playlists } from '@/lib/data.js';
-import MainCard from './MainCard.astro';
-import Greeting from './Greeting.astro';
-import MainPlaylist from './MainPlaylist.astro';
+import Layout from '@/layouts/Layout.astro';
+import { HomePage } from '@/components/main/HomePage.jsx';
+import { getCharts, getTopArtists, getTopPodcasts } from '@/lib/deezer';
+
+const [tracks, artists, podcasts] = await Promise.all([
+  getCharts(),
+  getTopArtists(),
+  getTopPodcasts(),
+]);
 ---
 
 <div
-  id='playlist-container'
-  class='relative transition-all duration-1000 bg-section-bg rounded-lg z-10 w-full
-  bg-linear-to-b from-green-500/70 via-green-700/30 to-section-bg/80 contenedor'
+  id='home-container'
+  class='relative bg-section-bg rounded-lg z-10 w-full h-full contenedor'
 >
-  <div class='relative z-20 m-3 mt-6'>
-    <Greeting />
-    <div class='flex flex-wrap flex-row gap-x-4 gap-y-6 mt-2 w-full'>
-      {playlists.map((playlist) => <MainPlaylist playlist={playlist} />)}
-    </div>
-    <h3 class='text-white text-2xl font-bold mt-6 mb-4'>For You</h3>
-
-    <div class='flex flex-wrap z-10 gap-x-4 gap-y-6 mt-2 justify-start pb-4'>
-      {playlists.map((playlist) => <MainCard playlist={playlist} />)}
-    </div>
-  </div>
-  <!-- <div
-    class='absolute inset-0 bg-linear-to-b from-green-500 via-green-700/30 to-section-bg/80 rounded-lg h-[60%] -z-50'
-    transition:name=`playlist-bg`
-  >
-  </div> -->
+  <HomePage
+    client:load
+    initialTracks={tracks as any}
+    initialArtists={artists as any}
+    initialPodcasts={podcasts as any}
+  />
 </div>
 
 <style>
-  /* Contenedor principal */
   .contenedor {
     overflow-y: auto;
     scrollbar-gutter: stable;
-
-    /* Estándar moderno (Firefox y navegadores actualizados) */
     scrollbar-color: rgba(100, 100, 100, 0.5) #1d1d1d;
     transition: scrollbar-color 0.3s ease;
   }
 
-  /* Para Chrome, Edge y Safari */
   .contenedor::-webkit-scrollbar {
     width: 10px;
   }
@@ -53,8 +43,14 @@ import MainPlaylist from './MainPlaylist.astro';
     border-radius: 10px;
   }
 
-  /* Truco: Al hacer hover en el CONTENEDOR, cambiamos el estilo de la barra */
   .contenedor:hover::-webkit-scrollbar-thumb {
     background-color: rgba(104, 104, 104, 0.8);
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
   }
 </style>

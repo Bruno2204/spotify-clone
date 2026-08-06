@@ -1,0 +1,49 @@
+---
+import { UserMenu } from '@/components/auth/UserMenu.jsx';
+import { HeaderSearch } from '@/components/layout/HeaderSearch.jsx';
+import { MobileSearch } from '@/components/layout/MobileSearch.jsx';
+import { Home, Bell, Folder } from 'lucide-react';
+import SpotifyIcon from '@/icons/SpotifyIcon.astro';
+
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
+const user = Astro.locals.user;
+---
+
+<header
+  class='[grid-area:header] h-16 px-6 flex items-center justify-between gap-4 bg-black text-white shrink-0'
+>
+  <div class='flex items-center gap-2 shrink-0'>
+    <a href='/' aria-label='Spotify home' class='size-9 flex items-center justify-center text-white'>
+      <SpotifyIcon />
+    </a>
+    <a
+      href='/'
+      aria-label='Home'
+      aria-current={isHome ? 'page' : undefined}
+      class='size-10 rounded-full bg-zinc-900 hover:bg-zinc-800 flex items-center justify-center transition'
+    >
+      <Home className='size-5' />
+    </a>
+  </div>
+
+  <div class='hidden md:block flex-1 max-w-xl'>
+    <HeaderSearch client:load />
+  </div>
+
+  <div class='flex items-center gap-2 shrink-0'>
+    <MobileSearch client:load />
+    <button
+      type='button'
+      aria-label='Notifications'
+      class='size-9 rounded-full bg-zinc-900 hover:bg-zinc-800 hidden sm:flex items-center justify-center transition'
+    >
+      <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='size-4' aria-hidden='true'>
+        <path d='M10.268 21a2 2 0 0 0 3.464 0'></path>
+        <path d='M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326'></path>
+      </svg>
+    </button>
+
+    <UserMenu user={user} client:load />
+  </div>
+</header>

@@ -1,24 +1,43 @@
 ---
 import Home from '@/icons/Home.astro';
 import Search from '@/icons/Search.astro';
+import { Heart } from 'lucide-react';
 const NAVS = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/search', label: 'Search', icon: Search },
 ];
+const user = Astro.locals.user;
+const currentPath = Astro.url.pathname;
 ---
 
 <nav
   class='bg-section-bg text-zinc-400 font-semibold rounded-lg m-2 p-4 flex flex-col gap-5 justify-center'
 >
   {
-    NAVS.map((nav) => (
+    NAVS.map((nav) => {
+      const isCurrent = nav.href === '/' ? currentPath === '/' : currentPath.startsWith(nav.href);
+      return (
+        <a
+          href={nav.href}
+          aria-current={isCurrent ? 'page' : undefined}
+          class='hover:text-zinc-100 transition-colors duration-300 ease-in-out flex items-center gap-4'
+        >
+          <nav.icon />
+          {nav.label}
+        </a>
+      );
+    })
+  }
+  {
+    user && (
       <a
-        href={nav.href}
-        class='first:hover:text-zinc-100 transition-colors duration-300 ease-in-out  flex items-center gap-4 not-first:cursor-default'
+        href='/liked-songs'
+        aria-current={currentPath === '/liked-songs' ? 'page' : undefined}
+        class='hover:text-zinc-100 transition-colors duration-300 ease-in-out flex items-center gap-4'
       >
-        <nav.icon />
-        {nav.label}
+        <Heart className='size-6' />
+        Liked Songs
       </a>
-    ))
+    )
   }
 </nav>

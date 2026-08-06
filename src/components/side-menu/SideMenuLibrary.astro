@@ -1,22 +1,30 @@
 ---
-import LibraryIcon from '@/icons/Library.astro';
-import { SideMenuCard } from '@/components/side-menu/SideMenuCard.jsx';
+import { prisma } from '@/lib/prisma';
+import { Library } from '@/components/side-menu/Library.jsx';
 
-import { playlists, type Playlist } from '@/lib/data.js';
+const user = Astro.locals.user;
+type UserPlaylistItem = { id: string; title: string; coverUrl: string | null; _count: { songs: number } };
+let userPlaylists: UserPlaylistItem[] = [];
+if (user) {
+  userPlaylists = await prisma.playlist.findMany({
+    where: { ownerId: user.id },
+    orderBy: { updatedAt: 'desc' },
+    select: { id: true, title: true, coverUrl: true, updatedAt: true, _count: { select: { songs: true } } },
+  });
+}
 ---
 
 <section
-  class='bg-section-bg text-zinc-400 font-semibold rounded-lg m-2 p-4 flex-1 flex flex-col gap-4 w-30 md:w-[350px] truncate'
+  class='bg-section-bg text-zinc-400 rounded-lg m-2 p-4 flex-1 flex flex-col gap-4 w-30 md:w-[350px] truncate overflow-hidden'
 >
-  <span class='flex flex-row md:gap-4 gap-2.5'>
-    <LibraryIcon />
-    Library
-  </span>
-  <div class='flex flex-col gap-4'>
-    {
-      playlists.map((playlist: Playlist) => (
-        <SideMenuCard playlist={playlist} client:load />
-      ))
-    }
-  </div>
+  {user ? (
+    <Library client:load initialPlaylists={userPlaylists as any} />
+  ) : (
+    <a
+      href='/login'
+      class='text-sm text-zinc-400 hover:text-white transition'
+    >
+      Log in to see your library
+    </a>
+  )}
 </section>
