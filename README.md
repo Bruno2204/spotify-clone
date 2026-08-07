@@ -1,22 +1,20 @@
-# 🎵 Spotify Clone
+# Spotify Clone
 
 A pixel-faithful, full-featured **Spotify UI clone** built with **Astro**, **React**, and **TypeScript**. Features a fully functional music player with real audio playback, playlist navigation, volume control, and reactive state management — deployed on Vercel.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://spotify-clone-seven-rho-55.vercel.app/)
-
 ---
 
-## ✨ Features
+##  Features
 
-- 🎧 **Real Audio Playback** — Plays actual `.mp3` files from the server, synced with the current playlist
-- ⏭️ **Full Player Controls** — Play, pause, skip to next/previous song with circular playlist logic
-- 🔊 **Volume Control** — Smooth slider with real-time audio adjustment
-- 📋 **Playlist Pages** — Dynamic per-playlist pages (`/playlist/[id]`) with song listings
-- 🟢 **Active Song Highlighting** — Currently playing song is highlighted in green across the UI
-- 🃏 **Playlist Cards** — Hover-to-reveal play buttons on playlist cards in the main view
-- 📚 **Sidebar Library** — Scrollable sidebar showing all user playlists with cover art
-- ⚡ **Optimized Rendering** — Astro's island architecture ensures minimal JS is shipped to the client
-- 🔄 **Reactive State** — Global state with Zustand keeps the player and playlist views in sync
+-  **Real Audio Playback** — Plays actual `.mp3` files from the server, synced with the current playlist
+-  **Full Player Controls** — Play, pause, skip to next/previous song with circular playlist logic
+-  **Volume Control** — Smooth slider with real-time audio adjustment
+-  **Playlist Pages** — Dynamic per-playlist pages (`/playlist/[id]`) with song listings
+-  **Active Song Highlighting** — Currently playing song is highlighted in green across the UI
+-  **Playlist Cards** — Hover-to-reveal play buttons on playlist cards in the main view
+-  **Sidebar Library** — Scrollable sidebar showing all user playlists with cover art
+-  **Optimized Rendering** — Astro's island architecture ensures minimal JS is shipped to the client
+-  **Reactive State** — Global state with Zustand keeps the player and playlist views in sync
 
 ---
 
@@ -66,7 +64,7 @@ src/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -97,7 +95,7 @@ npm run preview
 
 ---
 
-## 📁 Music Files
+##  Music Files
 
 Audio files should be placed in the `public/music/` directory following this structure:
 
@@ -112,7 +110,7 @@ public/
 
 ---
 
-## 🧠 What I Learned
+##  What I Learned
 
 Building this project deepened my understanding of:
 
