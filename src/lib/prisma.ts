@@ -7,7 +7,7 @@ if (typeof WebSocket === 'undefined') {
   neonConfig.webSocketConstructor = ws;
 }
 
-const connectionString = import.meta.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL ?? import.meta.env.DATABASE_URL;
 if (!connectionString) {
   throw new Error('DATABASE_URL is not set');
 }
