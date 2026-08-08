@@ -4,6 +4,7 @@ import { usePlayerStore } from '@/store/playerStore';
 import { formatDuration } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/Skeleton.jsx';
 import { LikeButton } from '@/components/playlist/LikeButton.jsx';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 const SKELETON_KEYS = [0, 1, 2, 3, 4, 5, 6, 7];
 
@@ -108,7 +109,9 @@ function SearchResultItem({ track, songs }) {
       </div>
       <div className='flex-1 min-w-0'>
         <p className='text-white text-sm font-medium truncate'>{track.title}</p>
-        <p className='text-zinc-400 text-xs truncate'>{track.artist}</p>
+        <p className='text-zinc-400 text-xs truncate'>
+          <ArtistLink id={track.artistId} name={track.artist} />
+        </p>
       </div>
       <span className='text-zinc-400 text-xs tabular-nums mr-2'>{formatDuration(track.durationSec)}</span>
       <LikeButton song={track} />

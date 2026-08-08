@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { usePlayerStore } from '@/store/playerStore';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 export function QueuePanel({ onClose }) {
   const ref = useRef(null);
@@ -61,7 +62,13 @@ export function QueuePanel({ onClose }) {
                 className='flex-1 min-w-0 text-left'
               >
                 <p className='text-white text-sm truncate'>{song.title}</p>
-                <p className='text-zinc-400 text-xs truncate'>{song.artist}</p>
+                <p className='text-zinc-400 text-xs truncate'>
+                  <ArtistLink
+                    id={song.artistId}
+                    name={song.artist}
+                    stopPropagation
+                  />
+                </p>
               </button>
               <button
                 type='button'

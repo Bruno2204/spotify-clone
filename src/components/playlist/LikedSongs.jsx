@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { usePlayerStore } from '@/store/playerStore.ts';
 import { formatDuration } from '@/lib/utils.ts';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 export function LikedSongs() {
   const [songs, setSongs] = useState(null);
@@ -92,7 +93,7 @@ export function LikedSongs() {
                       {song.title}
                     </h3>
                     <span className='text-zinc-400 text-sm font-normal line-clamp-1'>
-                      {song.artistName}
+                      <ArtistLink id={song.artistId} name={song.artistName} />
                     </span>
                   </div>
                 </td>

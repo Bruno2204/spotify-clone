@@ -1,4 +1,5 @@
 import { Play } from 'lucide-react';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 export function CurrentSong({ song }) {
   if (!song) {
@@ -29,13 +30,7 @@ export function CurrentSong({ song }) {
       <div className='min-w-0'>
         <h3 className='text-white text-md font-normal line-clamp-1 truncate'>{song.title}</h3>
         <p className='text-zinc-400 text-sm font-normal line-clamp-1 truncate'>
-          {song.artistId ? (
-            <a href={`/artist/${song.artistId}`} className='hover:underline hover:text-white'>
-              {song.artist ?? song.artistName}
-            </a>
-          ) : (
-            (song.artist ?? song.artistName)
-          )}
+          <ArtistLink id={song.artistId} name={song.artist ?? song.artistName} />
         </p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, X } from 'lucide-react';
 import { usePlayerStore } from '@/store/playerStore';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 export function HeaderSearch() {
   const [query, setQuery] = useState('');
@@ -160,7 +161,9 @@ export function HeaderSearch() {
                   <img src={track.cover} alt='' className='size-10 rounded object-cover' />
                   <div className='min-w-0 flex-1'>
                     <p className='text-white text-sm font-medium truncate'>{track.title}</p>
-                    <p className='text-zinc-400 text-xs truncate'>{track.artist}</p>
+                    <p className='text-zinc-400 text-xs truncate'>
+                      <ArtistLink id={track.artistId} name={track.artist} stopPropagation />
+                    </p>
                   </div>
                   <span className='text-zinc-400 text-xs tabular-nums'>
                     {Math.floor(track.durationSec / 60)}:{(track.durationSec % 60).toString().padStart(2, '0')}

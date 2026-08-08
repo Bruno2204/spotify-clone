@@ -3,6 +3,7 @@ import { Play, Users, Disc3 } from 'lucide-react';
 import { usePlayerStore } from '@/store/playerStore';
 import { formatDuration } from '@/lib/utils';
 import { LikeButton } from '@/components/playlist/LikeButton.jsx';
+import { ArtistLink } from './ArtistLink.jsx';
 
 export function ArtistDetail({ initialData }) {
   const [data, setData] = useState(initialData);
@@ -86,7 +87,9 @@ export function ArtistDetail({ initialData }) {
                   </td>
                   <td className='py-2 min-w-0'>
                     <p className='text-white truncate'>{track.title}</p>
-                    <p className='text-zinc-400 text-sm truncate'>{track.artist}</p>
+                    <p className='text-zinc-400 text-sm truncate'>
+                      <ArtistLink id={track.artistId} name={track.artist} />
+                    </p>
                   </td>
                   <td className='py-2'>
                     <a href={`/album/${track.albumId ?? ''}`} className='line-clamp-1 truncate block hover:underline hover:text-white transition text-sm text-zinc-400'>

@@ -4,6 +4,7 @@ import { usePlayerStore } from '@/store/playerStore.ts';
 import { formatDuration } from '@/lib/utils.ts';
 import { LikeButton } from './LikeButton.jsx';
 import { AddToPlaylistMenu } from './AddToPlaylistMenu.jsx';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 import { toast } from 'sonner';
 
 export function PlaylistSongs({ playlist, songs, isOwner = false }) {
@@ -131,17 +132,7 @@ function PlaylistRow({ playlist, songs, song, index, isOwner, removing, onRemove
             </a>
           </h3>
           <span className='text-zinc-400 text-sm font-normal line-clamp-1 truncate'>
-            {song.artistId ? (
-              <a
-                href={`/artist/${song.artistId}`}
-                onClick={(e) => e.stopPropagation()}
-                className='hover:underline hover:text-white'
-              >
-                {song.artist}
-              </a>
-            ) : (
-              song.artist
-            )}
+            <ArtistLink id={song.artistId} name={song.artist} stopPropagation />
           </span>
         </div>
       </td>

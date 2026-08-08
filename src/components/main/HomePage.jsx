@@ -6,6 +6,7 @@ import { LikeButton } from '@/components/playlist/LikeButton.jsx';
 import { AddToQueueButton } from '@/components/playlist/AddToQueueButton.jsx';
 import { AddToPlaylistMenu } from '@/components/playlist/AddToPlaylistMenu.jsx';
 import { formatDuration } from '@/lib/utils';
+import { ArtistLink } from './ArtistLink.jsx';
 
 const TABS = [
   { value: 'all', label: 'All' },
@@ -26,9 +27,9 @@ function HorizontalRow({ title, items, songs, renderItem, showAllHref = '#' }) {
           Show all
         </a>
       </header>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
         {items.map((item, i) => (
-          <div key={item.deezerId ?? i}>
+          <div key={item.deezerId ?? i} className='h-full'>
             {renderItem(item, i, songs)}
           </div>
         ))}
@@ -100,17 +101,12 @@ export function RadioCard({ track }) {
         </button>
       </div>
       <p className='text-white text-sm font-semibold truncate'>
-        {track.artistId ? (
-          <a
-            href={`/artist/${track.artistId}`}
-            onClick={(e) => e.stopPropagation()}
-            className='hover:underline'
-          >
-            {track.artist}
-          </a>
-        ) : (
-          track.artist
-        )}
+        <ArtistLink
+          id={track.artistId}
+          name={track.artist}
+          className='hover:underline'
+          stopPropagation
+        />
       </p>
       <p className='text-zinc-400 text-xs truncate'>With {track.album}</p>
     </article>
@@ -169,17 +165,7 @@ function SongsList({ tracks, songs }) {
                   {track.title}
                 </p>
                 <p className='text-zinc-400 text-sm truncate'>
-                  {track.artistId ? (
-                    <a
-                      href={`/artist/${track.artistId}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className='hover:underline hover:text-white'
-                    >
-                      {track.artist}
-                    </a>
-                  ) : (
-                    track.artist
-                  )}
+                  <ArtistLink id={track.artistId} name={track.artist} stopPropagation />
                 </p>
               </td>
               <td className='py-2' onClick={(e) => e.stopPropagation()}>
@@ -205,14 +191,14 @@ function SongsList({ tracks, songs }) {
 function PlaylistGrid({ playlists }) {
   if (playlists.length === 0) return <p className='text-zinc-400'>No playlists found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {playlists.map((pl) => (
         <a
           key={pl.deezerId}
           href={`https://www.deezer.com/playlist/${pl.deezerId}`}
           target='_blank'
           rel='noreferrer'
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
           <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
             <img src={pl.cover} alt={pl.title} className='w-full h-full object-cover' />
@@ -228,12 +214,12 @@ function PlaylistGrid({ playlists }) {
 function ArtistGrid({ artists }) {
   if (artists.length === 0) return <p className='text-zinc-400'>No artists found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {artists.map((a) => (
         <a
           key={a.deezerId}
           href={`/artist/${a.deezerId}`}
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
           <div className='relative aspect-square mb-3 rounded-full overflow-hidden bg-zinc-900'>
             <img src={a.picture} alt={a.name} className='w-full h-full object-cover' />
@@ -249,21 +235,27 @@ function ArtistGrid({ artists }) {
 function AlbumGrid({ albums }) {
   if (albums.length === 0) return <p className='text-zinc-400'>No albums found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {albums.map((a) => (
-        <a
+        <article
           key={a.deezerId}
-          href={`/album/${a.deezerId}`}
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
-          <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
+          <a href={`/album/${a.deezerId}`} className='block relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
             <img src={a.cover} alt={a.title} className='w-full h-full object-cover' />
-          </div>
-          <p className='text-white text-sm font-semibold truncate hover:underline'>{a.title}</p>
-          <p className='text-zinc-400 text-xs truncate hover:underline'>
-            {a.artist?.name ?? ''}
-          </p>
-        </a>
+          </a>
+          <a
+            href={`/album/${a.deezerId}`}
+            className='block text-white text-sm font-semibold truncate hover:underline'
+          >
+            {a.title}
+          </a>
+          <ArtistLink
+            id={a.artist?.deezerId}
+            name={a.artist?.name}
+            className='block text-zinc-400 text-xs truncate hover:underline'
+          />
+        </article>
       ))}
     </div>
   );
@@ -272,12 +264,12 @@ function AlbumGrid({ albums }) {
 function PodcastGrid({ podcasts }) {
   if (podcasts.length === 0) return <p className='text-zinc-400'>No podcasts found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {podcasts.map((p) => (
         <a
           key={p.deezerId}
           href={`/podcast/${p.deezerId}`}
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
           <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
             <img src={p.picture} alt={p.title} className='w-full h-full object-cover' />
@@ -307,8 +299,7 @@ export function HomePage({ initialTracks = [], initialArtists = [], initialPodca
     }).slice(0, 6);
   }
 
-  const featured = tracks[0];
-  const restForYou = tracks.slice(1, 7);
+  const pickedForYou = tracks.slice(0, 6);
   const radio = tracks.slice(2, 10);
 
   if (tracks.length === 0) {
@@ -319,21 +310,12 @@ export function HomePage({ initialTracks = [], initialArtists = [], initialPodca
     if (tab === 'all') {
       return (
         <>
-          {featured && (
-            <section className='mb-8 grid grid-cols-1 md:grid-cols-3 gap-4'>
-              <article className='md:col-span-1 group relative bg-zinc-800/60 rounded-lg overflow-hidden flex flex-col'>
-                <img src={featured.cover} alt={featured.title} className='w-full aspect-square object-cover' />
-                <div className='p-4 flex-1 flex flex-col justify-between'>
-                  <p className='text-zinc-400 text-xs uppercase font-bold'>Picked for you</p>
-                  <h3 className='text-white text-xl font-bold mt-1'>{featured.title}</h3>
-                  <p className='text-zinc-400 text-sm'>{featured.artist}</p>
-                </div>
-              </article>
-              <div className='md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-3'>
-                {restForYou.map((t) => <TrackCardLocal key={t.deezerId} track={t} songs={tracks} />)}
-              </div>
-            </section>
-          )}
+          <HorizontalRow
+            title='Picked for you'
+            items={pickedForYou}
+            songs={tracks}
+            renderItem={(t, _i, songs) => <TrackCardLocal track={t} songs={songs} />}
+          />
           <HorizontalRow
             title='Popular radio'
             items={radio}
@@ -347,15 +329,18 @@ export function HomePage({ initialTracks = [], initialArtists = [], initialPodca
           />
           <HorizontalRow
             title='Popular artists'
-            items={artists.slice(0, 8)}
+            items={artists.slice(0, 6)}
             renderItem={(a) => (
-              <article className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'>
+              <a
+                href={`/artist/${a.deezerId}`}
+                className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full block'
+              >
                 <div className='relative aspect-square mb-3 rounded-full overflow-hidden bg-zinc-900'>
                   <img src={a.picture} alt={a.name} className='w-full h-full object-cover' />
                 </div>
                 <p className='text-white text-sm font-semibold truncate text-center hover:underline'>{a.name}</p>
                 <p className='text-zinc-400 text-xs text-center'>Artist</p>
-              </article>
+              </a>
             )}
           />
         </>

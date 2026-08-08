@@ -4,6 +4,7 @@ import { usePlayerStore } from '@/store/playerStore';
 import { LikeButton } from '@/components/playlist/LikeButton.jsx';
 import { AddToPlaylistMenu } from '@/components/playlist/AddToPlaylistMenu.jsx';
 import { formatDuration } from '@/lib/utils';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 const TABS = [
   { value: 'all', label: 'All' },
@@ -141,19 +142,27 @@ export function SearchPage({ q, initialTracks, initialArtists, initialAlbums, in
           {topAlbums.length > 0 && (
             <section className='mb-8'>
               <h2 className='text-white text-2xl font-bold mb-4'>Albums</h2>
-              <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+              <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
                 {topAlbums.map((a) => (
-                  <a
+                  <article
                     key={a.deezerId}
-                    href={`/album/${a.deezerId}`}
-                    className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+                    className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
                   >
-                    <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
+                    <a href={`/album/${a.deezerId}`} className='block relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
                       <img src={a.cover} alt={a.title} className='w-full h-full object-cover' />
-                    </div>
-                    <p className='text-white text-sm font-semibold truncate'>{a.title}</p>
-                    <p className='text-zinc-400 text-xs truncate'>{a.artist.name}</p>
-                  </a>
+                    </a>
+                    <a
+                      href={`/album/${a.deezerId}`}
+                      className='block text-white text-sm font-semibold truncate hover:underline'
+                    >
+                      {a.title}
+                    </a>
+                    <ArtistLink
+                      id={a.artist?.deezerId ?? a.artistId}
+                      name={a.artist?.name}
+                      className='block text-zinc-400 text-xs truncate hover:underline'
+                    />
+                  </article>
                 ))}
               </div>
             </section>
@@ -190,7 +199,9 @@ export function SearchPage({ q, initialTracks, initialArtists, initialAlbums, in
                       </td>
                       <td className='py-2 min-w-0'>
                         <p className='text-white truncate'>{track.title}</p>
-                        <p className='text-zinc-400 text-sm truncate'>{track.artist}</p>
+                        <p className='text-zinc-400 text-sm truncate'>
+                          <ArtistLink id={track.artistId} name={track.artist} />
+                        </p>
                       </td>
                       <td className='py-2'>
                         <LikeButton song={track} />
@@ -245,7 +256,9 @@ function SongsList({ tracks }) {
             </td>
             <td className='py-2 min-w-0'>
               <p className='text-white truncate'>{track.title}</p>
-              <p className='text-zinc-400 text-sm truncate'>{track.artist}</p>
+              <p className='text-zinc-400 text-sm truncate'>
+                <ArtistLink id={track.artistId} name={track.artist} />
+              </p>
             </td>
             <td className='py-2'>
               <LikeButton song={track} />
@@ -266,14 +279,14 @@ function SongsList({ tracks }) {
 function PlaylistGrid({ playlists }) {
   if (playlists.length === 0) return <p className='text-zinc-400'>No playlists found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {playlists.map((pl) => (
         <a
           key={pl.deezerId}
           href={`https://www.deezer.com/playlist/${pl.deezerId}`}
           target='_blank'
           rel='noreferrer'
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
           <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
             <img src={pl.cover} alt={pl.title} className='w-full h-full object-cover' />
@@ -289,17 +302,17 @@ function PlaylistGrid({ playlists }) {
 function ArtistGrid({ artists }) {
   if (artists.length === 0) return <p className='text-zinc-400'>No artists found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {artists.map((a) => (
         <a
           key={a.deezerId}
           href={`/artist/${a.deezerId}`}
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
           <div className='relative aspect-square mb-3 rounded-full overflow-hidden bg-zinc-900'>
             <img src={a.picture} alt={a.name} className='w-full h-full object-cover' />
           </div>
-          <p className='text-white text-sm font-semibold truncate text-center'>{a.name}</p>
+          <p className='text-white text-sm font-semibold truncate text-center hover:underline'>{a.name}</p>
           <p className='text-zinc-400 text-xs text-center'>Artist</p>
         </a>
       ))}
@@ -310,19 +323,27 @@ function ArtistGrid({ artists }) {
 function AlbumGrid({ albums }) {
   if (albums.length === 0) return <p className='text-zinc-400'>No albums found.</p>;
   return (
-    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3'>
+    <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
       {albums.map((a) => (
-        <a
+        <article
           key={a.deezerId}
-          href={`/album/${a.deezerId}`}
-          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+          className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
         >
-          <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
+          <a href={`/album/${a.deezerId}`} className='block relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
             <img src={a.cover} alt={a.title} className='w-full h-full object-cover' />
-          </div>
-          <p className='text-white text-sm font-semibold truncate'>{a.title}</p>
-          <p className='text-zinc-400 text-xs truncate'>{a.artist.name}</p>
-        </a>
+          </a>
+          <a
+            href={`/album/${a.deezerId}`}
+            className='block text-white text-sm font-semibold truncate hover:underline'
+          >
+            {a.title}
+          </a>
+          <ArtistLink
+            id={a.artist?.deezerId ?? a.artistId}
+            name={a.artist?.name}
+            className='block text-zinc-400 text-xs truncate hover:underline'
+          />
+        </article>
       ))}
     </div>
   );

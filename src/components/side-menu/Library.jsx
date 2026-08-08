@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Plus, Search, ArrowUpDown, Maximize2, History, Play } from 'lucide-react';
 import { CreatePlaylistDialog } from '@/components/playlist/CreatePlaylistDialog.jsx';
 import { usePlayerStore } from '@/store/playerStore';
+import { ArtistLink } from '@/components/main/ArtistLink.jsx';
 
 const SORT_OPTIONS = [
   { value: 'recent', label: 'Recents' },
@@ -237,7 +238,7 @@ export function Library({ initialPlaylists = [] }) {
                   className='size-12 rounded-full object-cover'
                 />
                 <div className='min-w-0 flex-1'>
-                  <p className='text-white text-sm font-normal truncate'>{item.name}</p>
+                  <p className='text-white text-sm font-normal truncate hover:underline'>{item.name}</p>
                   <p className='text-zinc-400 text-xs truncate'>Artist</p>
                 </div>
               </a>
@@ -269,7 +270,9 @@ export function Library({ initialPlaylists = [] }) {
               <img src={item.cover} alt='' className='size-12 rounded' />
               <div className='min-w-0 flex-1'>
                 <p className='text-white text-sm font-normal truncate'>{item.title}</p>
-                <p className='text-zinc-400 text-xs truncate'>{item.artist}</p>
+                <p className='text-zinc-400 text-xs truncate'>
+                  <ArtistLink id={item.artistId} name={item.artist} stopPropagation />
+                </p>
               </div>
               <Play className='size-4 text-zinc-400 group-hover:text-white' />
             </button>

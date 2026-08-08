@@ -4,6 +4,7 @@ import { usePlayerStore } from '@/store/playerStore';
 import { formatDuration } from '@/lib/utils';
 import { LikeButton } from '@/components/playlist/LikeButton.jsx';
 import { AddToPlaylistMenu } from '@/components/playlist/AddToPlaylistMenu.jsx';
+import { ArtistLink } from './ArtistLink.jsx';
 import { toast } from 'sonner';
 
 export function SongDetail({ trackId }) {
@@ -112,19 +113,27 @@ export function SongDetail({ trackId }) {
       {related.length > 0 && (
         <section>
           <h2 className='text-white text-2xl font-bold mb-4'>More from this album</h2>
-          <div className='grid grid-cols-2 sm:grid-cols-3 gap-3'>
+          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 items-stretch'>
             {related.map((track) => (
-              <a
+              <article
                 key={track.deezerId}
-                href={`/song/${track.deezerId}`}
-                className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition'
+                className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition h-full'
               >
-                <div className='relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
+                <a href={`/song/${track.deezerId}`} className='block relative aspect-square mb-3 rounded overflow-hidden bg-zinc-900'>
                   <img src={track.cover} alt={track.title} className='w-full h-full object-cover' />
-                </div>
-                <p className='text-white text-sm font-semibold truncate'>{track.title}</p>
-                <p className='text-zinc-400 text-xs truncate'>{track.artist}</p>
-              </a>
+                </a>
+                <a
+                  href={`/song/${track.deezerId}`}
+                  className='block text-white text-sm font-semibold truncate hover:underline'
+                >
+                  {track.title}
+                </a>
+                <ArtistLink
+                  id={track.artistId}
+                  name={track.artist}
+                  className='block text-zinc-400 text-xs truncate hover:underline'
+                />
+              </article>
             ))}
           </div>
         </section>

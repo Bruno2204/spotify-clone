@@ -4,6 +4,7 @@ import { usePlayerStore } from '@/store/playerStore';
 import { LikeButton } from '@/components/playlist/LikeButton.jsx';
 import { AddToPlaylistMenu } from '@/components/playlist/AddToPlaylistMenu.jsx';
 import { AddToQueueButton } from '@/components/playlist/AddToQueueButton.jsx';
+import { ArtistLink } from './ArtistLink.jsx';
 
 export function TrackCard({ track, songs }) {
   const [hover, setHover] = useState(false);
@@ -30,7 +31,7 @@ export function TrackCard({ track, songs }) {
     <article
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition cursor-pointer'
+      className='group relative bg-zinc-800/40 hover:bg-zinc-800/80 rounded-lg p-3 transition cursor-pointer h-full flex flex-col'
     >
       <div
         onClick={handlePlay}
@@ -80,17 +81,7 @@ export function TrackCard({ track, songs }) {
       </div>
       <p className='text-white text-sm font-semibold truncate'>{track.title}</p>
       <p className='text-zinc-400 text-xs truncate'>
-        {track.artistId ? (
-          <a
-            href={`/artist/${track.artistId}`}
-            onClick={(e) => e.stopPropagation()}
-            className='hover:underline hover:text-white'
-          >
-            {track.artist}
-          </a>
-        ) : (
-          track.artist
-        )}
+        <ArtistLink id={track.artistId} name={track.artist} stopPropagation />
       </p>
       <div
         className='mt-1 transition-opacity duration-200'
